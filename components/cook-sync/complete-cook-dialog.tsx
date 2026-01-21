@@ -56,14 +56,6 @@ export function CompleteCookDialog({
     }
   }, [open, completedRecipe?.id, markRecipeAsCompleted])
 
-  useEffect(() => {
-    if (reviewSubmitted) {
-      const timer = setTimeout(() => {
-        handleGoHomeClick()
-      }, 2500)
-      return () => clearTimeout(timer)
-    }
-  }, [reviewSubmitted])
 
   if (!completedRecipe) return null
 
@@ -78,7 +70,7 @@ export function CompleteCookDialog({
       savedAt: new Date().toISOString(),
     })
     if (!wasLiked) {
-      setScrapFeedback(recipe.name)
+      setScrapFeedback("스크랩했습니다")
       setTimeout(() => setScrapFeedback(null), 2000)
     }
   }
@@ -94,7 +86,7 @@ export function CompleteCookDialog({
         author: completedRecipe.hashtags?.[0] || "미슐랭 0스타",
         savedAt: new Date().toISOString(),
       })
-      setScrapFeedback("스크랩 했습니다")
+      setScrapFeedback("스크랩했습니다")
       setTimeout(() => setScrapFeedback(null), 2000)
     }
   }
@@ -199,38 +191,28 @@ export function CompleteCookDialog({
                 <div className="space-y-2">
                   <Label className="text-base font-medium">이 레시피에 별점을 남겨주세요</Label>
                   <div className="flex items-center gap-1">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <button
-                        key={star}
-                        onClick={() => setRating(star)}
-                        onMouseEnter={() => setHoverRating(star)}
-                        onMouseLeave={() => setHoverRating(0)}
-                        className="p-1 transition-transform hover:scale-110"
-                      >
-                        <img
-                          src="/michelin-star.png"
-                          alt="미슐랭"
-                          className={cn(
-                            "h-8 w-8 transition-opacity",
-                            (hoverRating || rating) >= star ? "opacity-100" : "opacity-30",
-                          )}
-                        />
-                      </button>
-                    ))}
-                    {rating > 0 && (
-                      <span className="ml-2 text-sm text-muted-foreground">
-                        {rating === 5
-                          ? "최고예요!"
-                          : rating === 4
-                            ? "좋아요"
-                            : rating === 3
-                              ? "괜찮아요"
-                              : rating === 2
-                                ? "아쉬워요"
-                                : "별로예요"}
-                      </span>
-                    )}
+                    {[1, 2, 3, 4, 5].map((star) => {
+                      const active = (hoverRating || rating) >= star
+                      return (
+                        <button
+                          key={star}
+                          type="button"
+                          onClick={() => setRating(star)}
+                          onMouseEnter={() => setHoverRating(star)}
+                          onMouseLeave={() => setHoverRating(0)}
+                          className="p-1 transition-transform hover:scale-110"
+                          aria-label={`${star}점`}
+                        >
+                          <img
+                            src={active ? "/michelin-full-star.png" : "/michelin-star.png"}
+                            alt="미슐랭"
+                            className="h-8 w-8"
+                          />
+                        </button>
+                      )
+                    })}
                   </div>
+
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="comment" className="text-base font-medium">

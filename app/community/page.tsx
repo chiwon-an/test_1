@@ -163,7 +163,7 @@ export default function CommunityPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight">{userLocation} N빵</h1>
+            <h1 className="text-2xl font-bold tracking-tight">{userLocation} 나눔</h1>
             <p className="text-sm text-muted-foreground mt-1">이웃과 재료를 나눠보세요</p>
           </div>
         </div>

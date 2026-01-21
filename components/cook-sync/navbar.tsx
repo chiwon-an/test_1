@@ -1,4 +1,5 @@
 "use client"
+import { usePathname, useSearchParams } from "next/navigation"
 import { MichelinIcon } from "@/components/common/MichelinIcon"
 import type React from "react"
 import { useState } from "react"
@@ -110,6 +111,14 @@ export function Navbar({ onLogoClick }: NavbarProps) {
   const [dmOpen, setDmOpen] = useState(false)
   const [notifications, setNotifications] = useState(initialNotifications)
   const [userStarLevel] = useState(0)
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const type = searchParams.get("type")
+
+  const isLibraryActive = pathname === "/recipes" && type === "cook"
+  const isLabActive = pathname === "/recipes" && type === "user"
+  const isCommunityActive = pathname.startsWith("/community")
+
 
   const userLocation = user?.location ? user.location.split(" ").slice(-1)[0] : "우리 동네"
 
@@ -160,27 +169,44 @@ export function Navbar({ onLogoClick }: NavbarProps) {
           <div className="flex items-center gap-1">
             <Link
               href="/recipes?type=cook"
-              className="group inline-flex flex-row items-center justify-center rounded-md bg-transparent text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus:bg-accent focus:text-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 h-10 px-4 gap-2"
+              className={cn(
+                "group inline-flex flex-row items-center justify-center rounded-md text-sm font-medium transition-colors h-10 px-4 gap-2",
+                isLibraryActive
+                  ? "bg-[#800020]/10 text-[#800020] ring-1 ring-[#800020]/30"
+                  : "bg-transparent text-muted-foreground hover:bg-accent hover:text-foreground",
+              )}
             >
-              <BookOpen className="h-4 w-4" />
+              <BookOpen className={cn("h-4 w-4", isLibraryActive && "text-[#800020]")} />
               <span>레시피 도서관</span>
             </Link>
 
             <Link
               href="/recipes?type=user"
-              className="group inline-flex flex-row items-center justify-center rounded-md bg-transparent text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus:bg-accent focus:text-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 h-10 px-4 gap-2"
+              className={cn(
+                "group inline-flex flex-row items-center justify-center rounded-md text-sm font-medium transition-colors h-10 px-4 gap-2",
+                isLabActive
+                  ? "bg-[#800020]/10 text-[#800020] ring-1 ring-[#800020]/30"
+                  : "bg-transparent text-muted-foreground hover:bg-accent hover:text-foreground",
+              )}
             >
-              <FlaskConical className="h-4 w-4" />
+              <FlaskConical className={cn("h-4 w-4", isLabActive && "text-[#800020]")} />
               <span>레시피 연구소</span>
             </Link>
 
+
             <Link
               href="/community"
-              className="group inline-flex flex-row items-center justify-center rounded-md bg-transparent text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus:bg-accent focus:text-foreground focus:outline-none h-10 px-4 gap-2"
+              className={cn(
+                "group inline-flex flex-row items-center justify-center rounded-md text-sm font-medium transition-colors h-10 px-4 gap-2",
+                isCommunityActive
+                  ? "bg-[#800020]/10 text-[#800020] ring-1 ring-[#800020]/30"
+                  : "bg-transparent text-muted-foreground hover:bg-accent hover:text-foreground",
+              )}
             >
-              <Users className="h-4 w-4 shrink-0" />
-              <span>{userLocation} N빵</span>
+              <Users className={cn("h-4 w-4 shrink-0", isCommunityActive && "text-[#800020]")} />
+              <span>{userLocation} 나눔</span>
             </Link>
+
           </div>
         </nav>
 
