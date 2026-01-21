@@ -1,0 +1,25 @@
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Empty/outline michelin star (6-petaled flower) -->
+  <g transform="translate(64, 64)">
+    <!-- Center circle outline -->
+    <circle cx="0" cy="0" r="16" fill="none" stroke="#d0d0d0" stroke-width="2"/>
+    
+    <!-- Top petal -->
+    <path d="M 0,-16 Q -12,-40 0,-50 Q 12,-40 0,-16" fill="none" stroke="#d0d0d0" stroke-width="2" stroke-linejoin="round"/>
+    
+    <!-- Top-right petal -->
+    <path d="M 14,-8 Q 28,-22 40,-28 Q 28,-14 14,-8" fill="none" stroke="#d0d0d0" stroke-width="2" stroke-linejoin="round"/>
+    
+    <!-- Bottom-right petal -->
+    <path d="M 14,8 Q 28,22 40,28 Q 28,14 14,8" fill="none" stroke="#d0d0d0" stroke-width="2" stroke-linejoin="round"/>
+    
+    <!-- Bottom petal -->
+    <path d="M 0,16 Q -12,40 0,50 Q 12,40 0,16" fill="none" stroke="#d0d0d0" stroke-width="2" stroke-linejoin="round"/>
+    
+    <!-- Bottom-left petal -->
+    <path d="M -14,8 Q -28,22 -40,28 Q -28,14 -14,8" fill="none" stroke="#d0d0d0" stroke-width="2" stroke-linejoin="round"/>
+    
+    <!-- Top-left petal -->
+    <path d="M -14,-8 Q -28,-22 -40,-28 Q -28,-14 -14,-8" fill="none" stroke="#d0d0d0" stroke-width="2" stroke-linejoin="round"/>
+  </g>
+</svg>
